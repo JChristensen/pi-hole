@@ -19,7 +19,7 @@ I prefer to configure static addresses on the Pi itself, rather than in the rout
 
 The default name for the Ethernet connection is `Wired connection 1`, but if in doubt, check by running:
 ```bash
-$ nmcli conn
+nmcli conn
 ```
 
 Assign static addresses by running the following two commands:
@@ -43,7 +43,7 @@ nmcli conn show "Wired connection 1" | grep ipv4 | head
 nmcli conn show "Wired connection 1" | grep ipv6 | head
 ```
 ### Install Pi-hole
-I initially tried the [One-Step Automated Install](https://github.com/pi-hole/pi-hole/?tab=readme-ov-file#one-step-automated-install), but had an error. I then tried [Alternate Method 1](https://github.com/pi-hole/pi-hole/?tab=readme-ov-file#method-1-clone-our-repository-and-run) which worked great and seemed faster. It does require installing `Git` first, but that is no big deal.
+I initially tried the [One-Step Automated Install](https://github.com/pi-hole/pi-hole/?tab=readme-ov-file#one-step-automated-install), but had an error. I then tried [Alternate Method 1](https://github.com/pi-hole/pi-hole/?tab=readme-ov-file#method-1-clone-our-repository-and-run) which worked great and seemed faster. It does require installing `Git` first, but we always install it anyway, yes?
 
 Run the following commands:
 ```bash
@@ -74,7 +74,7 @@ Change the password for the Admin Webpage:
 sudo pihole setpassword "new password"
 ```
 
-If you want to be able to resolve local host names on your LAN, in the Pi-hole web interface, go to `Settings > DNS > Expert > Conditional forwarding` and enter the following. My router uses `.lan` as the local domain suffix. If yours uses something different (could be `.local`, `.home`, etc.), then make the appropriate substitution. This causes Pi-hole to use the router to look up hostnames on the LAN:
+If you want to be able to resolve local host names on your LAN, then in the Pi-hole web interface, go to `Settings > DNS > Expert > Conditional forwarding` and enter the following. My router uses `.lan` as the local domain suffix. If yours uses something different (could be `.local`, `.home`, etc.), then make the appropriate substitution. This causes Pi-hole to use the router to look up LAN hostnames:
 ```
 true,fd38:3f9d:48bc::/48,fd38:3f9d:48bc:1::1,lan
 true,192.168.1.0/24,192.168.1.1,lan
@@ -135,7 +135,7 @@ Set Pi-hole's upstream DNS server to be your local dnscrypt-proxy instance:
 sudo pihole-FTL --config dns.upstreams '["127.0.0.1#5053"]'
 ```
 
-Check the web interface, this should also appear under Settings > DNS > Custom DNS servers.
+Check the web interface, this should also appear under `Settings > DNS > Custom DNS servers`.
 
 Reload the systemd configuration and restart services:
 ```bash
@@ -148,7 +148,7 @@ Check to ensure the services have started and are running:
 systemctl status dnscrypt-proxy.socket dnscrypt-proxy.service pihole-FTL.service
 ```
 
-In the Pi-hole admin web interface, ensure that all boxes for public dns servers are unchecked, and that `127.0.0.1#5053` appears under `Settings > DNS > Custom DNS servers`.
+In the Pi-hole admin web interface, go to `Settings > DNS` and ensure that all boxes for `Upstream DNS Servers` are unchecked, and that `127.0.0.1#5053` appears under `Custom DNS servers`.
 
 Reboot one more time for good luck, and Pi-hole should be good to go. Next, we will configure the router to advertise the Pi-hole machine to other hosts on your LAN as the DNS server.
 

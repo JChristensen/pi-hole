@@ -5,13 +5,13 @@ Dec 2025
 
 Here we modify the router to advertise the Pi-hole machine to hosts on the LAN as the DNS server. The router remains as the DHCP server. We assume a (fairly) default installation of OpenWrt.
 
-Below are steps to take using **either** the OpenWrt web interface (LuCI), **or** the command-line interface (UCI.)
+Below are steps to take using **either** the OpenWrt web interface ([LuCI](https://github.com/JChristensen/pi-hole/blob/master/openwrt_procedure.md#luci-configuration)), **or** the command-line interface ([UCI](https://github.com/JChristensen/pi-hole/blob/master/openwrt_procedure.md#uci-configuration).)
 
-## LuCI
+## LuCI configuration
 
 ### Advertise Pi-hole as the DNS server for the LAN
 Go to `Network > Interfaces > LAN > Edit > DHCP Server > Advanced Settings`.  
-Clear any existing entries in the DHCP-Options box(es), then enter the Pi-hole IPv4 address:
+Clear any existing entries in the DHCP-Options box(es), then enter `6,` followed by the Pi-hole IPv4 address:
 ```
 6,192.168.1.42
 ```
@@ -64,13 +64,13 @@ This last setting ensures that the rule does not apply to the Pi-hole machine. D
 
 Click `Save`, then `Save & Apply`.
 
-Now add another rule for IPv6. We can do this by clicking the `Clone` button, then the `Edit` button on the new rule. Change the following attributes:
+Now add another rule for IPv6. We can do this by clicking the `Clone` button, then the `Edit` button on the new rule. Change the following settings:
 
 Name: `dns_to_pihole_v6`
 
 Internal IP address: `fd38:3f9d:48bc:1::42` (choose your Pi-hole's address from the drop-down)
 
-Source IP address: `!fd38:3f9d:48bc:1::42`
+Advanced Settings > Source IP address: `!fd38:3f9d:48bc:1::42`
 
 Click `Save`, then `Save & Apply`.
 
@@ -94,9 +94,9 @@ Action: `MASQUERADE`
 
 Click `Save`, then `Save & Apply`.
 
-Now add another rule for IPv6 by cloning the rule just added. Edit the cloned rule, and change the following attributes:
+Now add another rule for IPv6 by cloning the rule just added. Edit the cloned rule, and change the following settings:
 
-Name: `masq_pihole_v6`  (or as desired)
+Name: `masq_pihole_v6`
 
 Destination address: `fd38:3f9d:48bc:1::42` (choose your Pi-hole's address from the drop-down)
 
@@ -154,3 +154,6 @@ The local DNS record in Pi-hole can be deleted, or it can be left for future tes
 At this point I like to reboot the router and the Pi, then check to see if everything is working as planned.
 
 Congratulations! Your OpenWrt router is now working with Pi-hole to minimize unwanted content and keep your DNS queries private.
+
+## UCI configuration
+(Stay tuned.)
