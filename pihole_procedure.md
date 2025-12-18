@@ -150,4 +150,4 @@ In the Pi-hole admin web interface, ensure that all boxes for public dns servers
 
 Reboot one more time for good luck, and Pi-hole should be good to go, but your router now needs to point hosts on your LAN to use Pi-hole as their DNS server.
 
-Continue with the OpenWrt procedure.
+Continue with [the OpenWrt procedure](https://github.com/JChristensen/pi-hole/blob/master/openwrt_procedure.md).

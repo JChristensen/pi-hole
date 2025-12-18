@@ -22,7 +22,7 @@ Feel free to raise an issue for any errors that you may find here, or for improv
 
 I used a Raspberry Pi 3 Model B. This (or a 3B+) may be the perfect Pi-hole machine for typical home use. A Pi 4 might be a bit of overkill; a Pi 5 definitely would be. On the Pi 3B, memory utilization is about 20% of 1GB. I do not think I have seen CPU load average with anything to the left of the decimal point, so the machine is really loafing. Power consumption is less than two watts.
 
-Installation of Raspberry Pi OS or OpenWrt, using ssh or creating keys, etc. are outside the scope of these notes. A comfort level with the Linux command line is assumed, including editing configuration files with an editor of your choice, i.e. nano, vim, etc.
+Installation of Raspberry Pi OS or OpenWrt, using ssh or creating keys, etc. are outside the scope of these notes. A comfort level with the Linux command line is assumed, including editing configuration files with an editor of your choice, e.g. nano, vim, etc.
 
 ## DNS privacy considerations
 Dad's video and worksheet included the optional installation of Unbound, for a recursive DNS solution running on the Pi. Hence no need for third-party DNS providers like Cloudflare or Quad9. Unbound communicates directly to DNS root and TLD servers.
@@ -37,6 +37,6 @@ I may still try Unbound at some point, because it does sound cool.
 
 ## Let's get on with it
 Enough with the preliminaries already.  
-Go to the Pi-hole installation procedure.
-Go to the OpenWrt procedure.
+Go to the [Pi-hole installation procedure](https://github.com/JChristensen/pi-hole/blob/master/pihole_procedure.md).  
+Go to the [OpenWrt procedure](https://github.com/JChristensen/pi-hole/blob/master/openwrt_procedure.md).
 
