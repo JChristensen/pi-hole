@@ -34,17 +34,17 @@ Click `Save & Apply`.
 Repeat for the `wan6` interface.
 
 ### Dealing with the rogues
-At this point, the router is advertising Pi-hole as the DNS server, but this is only a suggestion. Hosts on the LAN can go rogue, i.e. disregard the suggestion and send DNS requests to the server of their choosing. We can mitigate this with a few firewall rules.
+At this point, the router is advertising Pi-hole as the DNS server, but this is only a suggestion. Hosts on the LAN can "go rogue," i.e. disregard the suggestion and send DNS requests to a server of their choosing. We can mitigate this with a few firewall rules.
 
 Hat tip to [Jeff Keller](https://jeff.vtkellers.com/posts/technology/force-all-dns-queries-through-pihole-with-openwrt/) for these rules.
 
-#### Port forward rule
-This rule redirects any DNS traffic originating on the LAN to the Pi-hole machine. The Pi-hole machine itself is excluded from this rule.
+#### Port forward rules
+These rules (one for IPv4, one for IPv6) redirect any DNS traffic originating on the LAN to the Pi-hole machine. The Pi-hole machine itself is excluded from this rule.
 
 Go to `Network > Firewall > Port Forwards`.  
 Click `Add` to create a new rule, and make the following settings on the `General Settings` tab:
 
-Name: `dns_to_pihole` (or as desired)
+Name: `dns_to_pihole_v4`
 
 Source zone: `lan`
 
@@ -52,7 +52,7 @@ External port: `53`
 
 Destination zone: `lan`
 
-Internal IP address: `192.168.1.42` (choose your Pi-hole's address from the drop-down)
+Internal IP address: `192.168.1.42` (choose from the drop-down)
 
 Internal port: `53`
 
@@ -64,23 +64,41 @@ This last setting ensures that the rule does not apply to the Pi-hole machine. D
 
 Click `Save`, then `Save & Apply`.
 
-#### NAT rule
-With just the above rule, the rogue host will notice that the reply did not come from the intended DNS server. This rule will rewrite the source IP on the response to match the original query. Sneaky.
+Now add another rule for IPv6. We can do this by clicking the `Clone` button, then the `Edit` button on the new rule. Change the following attributes:
+
+Name: `dns_to_pihole_v6`
+
+Internal IP address: `fd38:3f9d:48bc:1::42` (choose your Pi-hole's address from the drop-down)
+
+Source IP address: `!fd38:3f9d:48bc:1::42`
+
+Click `Save`, then `Save & Apply`.
+
+#### NAT rules
+With just the above rules, the rogue host will notice that the reply did not come from the intended DNS server. These NAT rules will rewrite the source IP on the response to match the original query. (Sneaky.) Again, we have two rules, IPv4 and IPv6.
 
 Go to `Network > Firewall > NAT Rules`.  
 Click `Add` to create a new rule, and make the following settings on the `General Settings` tab:
 
-Name: `masq_pihole_redirect`  (or as desired)
+Name: `masq_pihole_v4`
 
 Protocol: `TCP, UDP`
 
 Outbound zone: `lan`
 
-Destination address: `192.168.1.42` (choose your Pi-hole's address from the drop-down)
+Destination address: `192.168.1.42` (choose from the drop-down)
 
 Destination port: `53`
 
 Action: `MASQUERADE`
+
+Click `Save`, then `Save & Apply`.
+
+Now add another rule for IPv6 by cloning the rule just added. Edit the cloned rule, and change the following attributes:
+
+Name: `masq_pihole_v6`  (or as desired)
+
+Destination address: `fd38:3f9d:48bc:1::42` (choose your Pi-hole's address from the drop-down)
 
 Click `Save`, then `Save & Apply`.
 
@@ -90,7 +108,7 @@ I added one more rule to stop any rogue host that tries to use DNS-over-TLS (DoT
 Go to `Network > Firewall > Traffic Rules`.  
 Click `Add` to create a new rule, and make the following settings on the `General Settings` tab:
 
-Name: `drop_dot`  (or as desired)
+Name: `drop_dot`
 
 Protocol: `TCP, UDP`
 
@@ -105,7 +123,7 @@ Action: `drop`
 Click `Save`, then `Save & Apply`.
 
 ### Test the firewall rules
-We can test the rule by creating a fictitious local DNS entry.  
+We can test the rules by creating a fictitious local DNS entry.  
 In the Pi-hole web interface, go to `Settings > Local DNS Records` and enter:
 
 Domain: `piholetest.example.com`
@@ -119,7 +137,7 @@ Now, from another host on the network, run the following command, which tries to
 dig piholetest.example.com @8.8.8.8
 ```
 
-The reply should be as follows, apparently from Google's 8.8.8.8 DNS server:
+The reply should be as follows, apparently from Google's 8.8.8.8 DNS server, but really from Pi-hole, since Google does not have an address for that name:
 
 ```
 ...
