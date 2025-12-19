@@ -11,10 +11,9 @@ Below are steps to take using **either** the OpenWrt web interface ([LuCI](https
 
 ### Advertise Pi-hole as the DNS server for the LAN
 Go to `Network > Interfaces > LAN > Edit > DHCP Server > Advanced Settings`.  
-Clear any existing entries in the DHCP-Options box(es). Enter the Pi-hole IPv4 and IPv6 addresses (one per box), prefixed with `6,`:
+Clear any existing entries in the DHCP-Options box(es). Enter the Pi-hole IPv4 address, prefixed with `6,`:
 ```
 6,192.168.1.42
-6,fd38:3f9d:48bc:1::42
 ```
 
 Now click on the `IPv6 Settings` tab. In the `Announced IPv6 DHCP servers` box, clear any existing entries, then enter the Pi-hole IPv6 address:
@@ -55,7 +54,7 @@ At this point, the router is advertising Pi-hole as the DNS server, but this is 
 Hat tip to [Jeff Keller](https://jeff.vtkellers.com/posts/technology/force-all-dns-queries-through-pihole-with-openwrt/) for these rules.
 
 #### Port forward rules
-These rules (one for IPv4, one for IPv6) redirect any DNS traffic originating on the LAN to the Pi-hole machine. The Pi-hole machine itself is excluded from this rule.
+These rules (one for IPv4, one for IPv6) redirect any DNS traffic originating on the LAN to the Pi-hole machine. The Pi-hole machine itself is excluded from these rules.
 
 Go to `Network > Firewall > Port Forwards`.  
 Click `Add` to create a new rule, and make the following settings on the `General Settings` tab:

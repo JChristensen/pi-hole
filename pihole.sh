@@ -29,7 +29,6 @@ config_dhcp()
     uci -q delete dhcp.lan.dhcp_option
     uci -q delete dhcp.lan.dns
     uci add_list dhcp.lan.dhcp_option="6,${PIHOLE_IPv4}"
-    uci add_list dhcp.lan.dhcp_option="6,${PIHOLE_IPv6}"
     uci set dhcp.lan.dns="${PIHOLE_IPv6}"
     uci set dhcp.lan.dns_service="0"
     uci -q delete dhcp.@dnsmasq[0].server
