@@ -23,13 +23,28 @@ fd38:3f9d:48bc:1::42
 
 Also, clear the `Local IPv6 DNS server` checkbox.
 
+Click `Save`, then `Save & Apply`.
+
+### Set DNS forwards
+Go to 'Network > DHCP and DNS > Forwards'
+
+Delete any existing entries.
+
+Enter the Pi-hole IPv4 and IPv6 addresses (one per box):
+```
+192.168.1.42
+fd38:3f9d:48bc:1::42
+```
 Click `Save & Apply`.
+
 
 ### Remove any custom DNS servers 
 
-Go to `Network > Interfaces > wan > Advanced Settings` and clear any entries in `Use custom DNS servers`.
+Go to `Network > Interfaces > wan > Advanced Settings` and clear the checkbox `Use DNS servers advertised by peer`.
 
-Click `Save & Apply`.
+Also clear any entries in `Use custom DNS servers`.
+
+Click `Save`, then Save & Apply`.
 
 Repeat for the `wan6` interface.
 

@@ -8,7 +8,7 @@ Most of this procedure assumes you have connected to your Pi-hole machine via [S
 Please read the [README](https://github.com/JChristensen/pi-hole/blob/master/README.md) file first, if you have not already.
 
 ## Know your IP addresses
-Examples in this procedure contain my IP addresses, listed below. It is incumbent on the reader to recognize these and make the proper substitutions as needed. I have tried to include both IPv4 and IPv6 addresses. Whether you need or want both depends on your network (mine uses [SLAAC](https://en.wikipedia.org/wiki/IPv6_address#Stateless_address_autoconfiguration_(SLAAC)).)
+Examples in this procedure contain my LAN IP addresses, listed below. It is incumbent on the reader to recognize these and make the proper substitutions as needed. I have tried to include both IPv4 and IPv6 functionality. Whether you need or want both depends on your network (mine uses [SLAAC](https://en.wikipedia.org/wiki/IPv6_address#Stateless_address_autoconfiguration_(SLAAC)).)
 
 - Router (gateway) `192.168.1.1` and `fd38:3f9d:48bc:1::1`
 - Pi-hole machine `192.168.1.42` and `fd38:3f9d:48bc:1::42`
