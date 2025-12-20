@@ -17,7 +17,7 @@ My router has a guest network configured as a subnet. It looks like guest DNS re
 Feel free to raise an issue for any errors that you may find here, or for improvements and other suggestions.
 
 ## Prerequisites
-- A [Raspberry Pi](https://www.raspberrypi.com/products/) running [RPi OS Lite (trixie)](https://www.raspberrypi.com/software/operating-systems/) and connected via Ethernet. This is a headless installation; OpenSSH Server should be installed and enabled.
+- A [Raspberry Pi](https://www.raspberrypi.com/products/) running [RPi OS Lite (trixie)](https://www.raspberrypi.com/software/operating-systems/) and connected via Ethernet. This is a headless installation; [OpenSSH Server](https://www.openssh.org/) should be installed and enabled.
 - A router running OpenWrt 24.10.4 or later.
 
 I used a Raspberry Pi 3 Model B. This (or a 3B+) may be the perfect Pi-hole machine for typical home use. A Pi 4 might be a bit of overkill; a Pi 5 definitely would be. On the Pi 3B, memory utilization is about 20% of 1GB. I do not think I have seen CPU load average with anything to the left of the decimal point, so the machine is really loafing. Power consumption is less than two watts.
@@ -25,7 +25,7 @@ I used a Raspberry Pi 3 Model B. This (or a 3B+) may be the perfect Pi-hole mach
 Installation of Raspberry Pi OS or OpenWrt, using ssh or creating keys, etc. are outside the scope of these notes. A comfort level with the Linux command line is assumed, including editing configuration files with an editor of your choice, e.g. nano, vim, etc.
 
 ## DNS privacy considerations
-Dad's video and worksheet includes the optional installation of Unbound, for a recursive DNS solution running on the Pi. Hence no need for third-party DNS providers like Cloudflare or Quad9. Unbound communicates directly to DNS root and TLD servers.
+Dad's video and worksheet includes the optional installation of [Unbound](https://nlnetlabs.nl/projects/unbound/about/), for a recursive DNS solution running on the Pi. Hence no need for third-party DNS providers like Cloudflare or Quad9. Unbound communicates directly to DNS root and TLD servers.
 
 I skipped Unbound, and instead installed [dnscrypt-proxy](https://docs.pi-hole.net/guides/dns/dnscrypt-proxy/) to implement DNS-over-HTTPS (DoH). There were two reasons for this: (1) I had previously implemented DoH on the router, and ([B](https://en.wikipedia.org/wiki/Car_Talk)) My understanding is that DNS root/TLD servers do not implement encryption such as DoH or DoT.
 

@@ -149,7 +149,7 @@ Then click the green box with the plus sign.
 
 Now, from another host on the network, run the following command, which tries to use Google's DNS server to look up the fictitious domain:
 ```bash
-dig piholetest.example.com @8.8.8.8
+dig @8.8.8.8 piholetest.example.com
 ```
 
 The reply should be as follows, apparently from Google's 8.8.8.8 DNS server, but really from Pi-hole, since Google does not have an address for that name:
