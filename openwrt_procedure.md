@@ -28,12 +28,11 @@ Click `Save`, then `Save & Apply`.
 ### Set DNS forwards
 Go to `Network > DHCP and DNS > Forwards`
 
-Delete any existing entries.
+Delete any `DNS Forwards` boxes with existing entries.
 
-Enter the Pi-hole IPv4 and IPv6 addresses (one per box):
+Enter the Pi-hole IPv4 address:
 ```
 192.168.1.42
-fd38:3f9d:48bc:1::42
 ```
 Click `Save & Apply`.
 

@@ -32,7 +32,7 @@ config_dhcp()
     uci set dhcp.lan.dns="${PIHOLE_IPv6}"
     uci set dhcp.lan.dns_service="0"
     uci -q delete dhcp.@dnsmasq[0].server
-    uci set dhcp.@dnsmasq[0].server="${PIHOLE_IPv4} ${PIHOLE_IPv6}"
+    uci set dhcp.@dnsmasq[0].server="${PIHOLE_IPv4}"
     uci commit dhcp
     service dnsmasq restart
 }
