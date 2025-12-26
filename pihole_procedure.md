@@ -153,3 +153,31 @@ In the Pi-hole admin web interface, go to `Settings > DNS` and ensure that all b
 Reboot one more time for good luck, and Pi-hole should be good to go. Next, we will configure the router to advertise the Pi-hole machine to other hosts on your LAN as the DNS server.
 
 Continue with [the OpenWrt procedure](https://github.com/JChristensen/pi-hole/blob/master/openwrt_procedure.md).
+
+## Maintenance
+### Health check
+```bash
+pihole status
+```
+```bash
+systemctl status dnscrypt-proxy.socket dnscrypt-proxy.service pihole-FTL.service
+```
+
+### Updates
+Do the following updates at least monthly.
+
+Update Raspberry Pi OS:
+```bash
+sudo apt update && sudo apt full-upgrade
+```
+
+Update the Pi-hole software:
+```bash
+sudo pihole updatePihole
+```
+
+### Backup the Pi-hole configuration
+From the web admin interface:
+```
+Settings > Teleporter > Export your Pi-hole's configuration
+```
