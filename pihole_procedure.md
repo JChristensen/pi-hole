@@ -176,6 +176,12 @@ Update the Pi-hole software:
 sudo pihole updatePihole
 ```
 
+Update the subscribed block lists. Pi-hole runs the gravity script weekly to update the lists but it can be run manually from the web admin interface:
+```
+Tools > Update Gravity > Update
+```
+
+
 ### Backup the Pi-hole configuration
 From the web admin interface:
 ```
